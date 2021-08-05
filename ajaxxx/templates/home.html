@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="{{url_for('static', filename='index.js')}}"></script>
+</head>
+<body>
+<p>List defined in Python</P>
+{% for x in posts %} 
+{{x}}
+{% endfor %}
+</body>
+</html>
