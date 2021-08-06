@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--leafletのライブラリの取り込み linkでcssを読み取り script要素でライブラリ本体を取り込みます--!>
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id = "map_div" style="width:800px; height:600px"></div>
+    <script type="text/javascript">
+        //設定 地図の初期表示位置の緯度経度を変数 difposに指定 OpenStreetMapでは必ず著作権が求めらるため、コピーライトも表記している
+        const difPos = [35.6585840,139.7454316]
+        const copyright = "&copy; <a href='"+"https://www.openstreetmap.org/copyright"+"'>OpenStreetMap</a> contributors"
+        //基本マップの設定 id属性を割り振ったmap_divを指定しsetViewメソッドを呼び出すことで基本的なmapの表示を指示
+        const map = L.map('map_div').setView(difPos,20)
+        //タイルレイヤーの指定 レイヤ＝地図の上に重ねるセル画。地図右下のコピーライトを指定
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: copyright}
+        ).addTo(map)
+        //マーカーの作成
+        const marker = L.marker(difPos).addTo(map)
+        //現在地を取得する
+        navigator.geolocation.watchPosition(
+            function (pos){
+                //緯度経度の情報を得る
+                const lat = pos.coords.latitude
+                const lng = pos.coords.longitude
+                const zoom = map.getZoom()
+                //マップの表示位置を変更
+                map.setView([lat,lng],zoom,{animation:true})
+                //マーカーの位置も変更
+                marker.setLatLng([lat,lng])
+                marker.bindPopup('現在位置はココ！')
+            }
+        )
+        //step1 緯度と経度から、住所を検索するプログラムを書く
+        //①逆ジオコーディング対象となる緯度経度を取得
+
+
+        //②OpenStreetMapの逆ジオコーディングAPIへアクセスし、結果を取得
+
+
+        //③取得した結果を出力
+
+        
+        
+        //step2 あなたは何丁目にいますよね。OK → 神奈川県横浜市東希望がおか→DBを使って、ゴミ捨て日を検出する！
+
+    </script>
+</body>
+</html>
